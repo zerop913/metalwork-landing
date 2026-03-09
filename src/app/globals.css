@@ -1,39 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
-  :root {
-    /* Brand colors */
-    --color-primary: #1a1a1a;
-    --color-primary-light: #2d2d2d;
-    --color-accent: #c8a84b;
-    --color-accent-hover: #b8962e;
-    --color-accent-light: #f5e6b8;
-
-    /* Neutrals */
-    --color-bg: #f8f7f4;
-    --color-bg-alt: #ffffff;
-    --color-bg-dark: #1a1a1a;
-    --color-surface: #ffffff;
-
-    /* Text */
-    --color-text: #1a1a1a;
-    --color-text-muted: #6b7280;
-    --color-text-light: #9ca3af;
-    --color-text-on-dark: #ffffff;
-
-    /* Borders */
-    --color-border: #e5e7eb;
-    --color-border-dark: #374151;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
-
-    /* Layout */
-    --container-max: 1280px;
-    --section-padding-y: 80px;
-    --section-padding-x: 24px;
+  html {
+    scroll-behavior: smooth;
   }
 
   html,
@@ -43,8 +14,7 @@
   }
 
   body {
-    color: var(--color-text);
-    background: var(--color-bg);
+    background: #fafaf8;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -67,25 +37,165 @@
 }
 
 @layer utilities {
+  .section-divider {
+    position: relative;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #e7e5e0 20%,
+      #e7e5e0 80%,
+      transparent 100%
+    );
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+
+  .reveal.in-view,
+  .in-view .reveal {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-x {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-x {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition:
+        opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+
+  .reveal-x.in-view,
+  .in-view .reveal-x {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .step-connector {
+    position: absolute;
+    top: 48px;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    border-top: 2px dashed #e7e5e0;
+  }
+
+  @media (max-width: 768px) {
+    .step-connector {
+      display: none;
+    }
+  }
+
   .container-main {
-    max-width: var(--container-max);
-    margin-inline: auto;
-    padding-inline: var(--section-padding-x);
+    max-width: 98vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
-  .section-padding {
-    padding-block: var(--section-padding-y);
+  @media (max-width: 1024px) {
+    .container-main {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 
-  .text-accent {
-    color: var(--color-accent);
+  @media (max-width: 640px) {
+    .container-main {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 
-  .bg-accent {
-    background-color: var(--color-accent);
+  .accent-line {
+    position: relative;
+    display: inline-block;
   }
 
-  .border-accent {
-    border-color: var(--color-accent);
+  .accent-line::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #e8521a;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .accent-line:hover::after {
+    width: 100%;
+  }
+
+  .card-lift {
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .card-lift:hover {
+    transform: translateY(-8px);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #e8521a 0%, #d04515 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .accent-dot {
+    width: 8px;
+    height: 8px;
+    background: #e8521a;
+    border-radius: 50%;
+  }
+
+  .bg-pattern {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bg-pattern::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+      circle,
+      rgba(232, 82, 26, 0.04) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .bg-pattern::before {
+      width: 250px;
+      height: 250px;
+    }
   }
 }

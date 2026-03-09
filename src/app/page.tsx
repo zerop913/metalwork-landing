@@ -1,20 +1,20 @@
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
-import { PortfolioSection } from "@/components/sections/PortfolioSection";
+import { GallerySection } from "@/components/sections/GallerySection";
 import { ContactsSection } from "@/components/sections/ContactsSection";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main className="overflow-hidden">
         <HeroSection />
         <ServicesSection />
         <ProcessSection />
-        <PortfolioSection />
+        <GallerySection />
         <ContactsSection />
       </main>
       <Footer />

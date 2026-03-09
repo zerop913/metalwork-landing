@@ -1,63 +1,46 @@
 import React from "react";
 
-type Variant = "primary" | "outline" | "ghost";
-type Size = "sm" | "md" | "lg";
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: Variant;
-  size?: Size;
+interface ButtonProps {
+  disabled?: boolean;
+  variant?: "primary" | "ghost" | "ghost-dark";
+  size?: "md" | "lg";
   children: React.ReactNode;
-  fullWidth?: boolean;
-  as?: "button" | "a";
-  href?: string;
+  className?: string;
+  [key: string]: any;
 }
-
-const variantClasses: Record<Variant, string> = {
-  primary:
-    "bg-[var(--color-accent)] text-[var(--color-primary)] font-semibold hover:bg-[var(--color-accent-hover)] active:scale-[0.98]",
-  outline:
-    "border-2 border-[var(--color-accent)] text-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)] font-semibold",
-  ghost:
-    "text-[var(--color-accent)] hover:underline underline-offset-4 font-medium",
-};
-
-const sizeClasses: Record<Size, string> = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
-};
 
 export function Button({
   variant = "primary",
   size = "md",
   children,
-  fullWidth = false,
   className = "",
-  as: Tag = "button",
-  href,
   ...props
 }: ButtonProps) {
-  const classes = [
-    "inline-flex items-center justify-center gap-2 rounded-sm transition-all duration-200 cursor-pointer",
-    variantClasses[variant],
-    sizeClasses[size],
-    fullWidth ? "w-full" : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
+  const baseStyles =
+    "font-display font-semibold uppercase tracking-wider rounded-none transition-all duration-300 inline-flex items-center justify-center relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none";
 
-  if (Tag === "a" && href) {
-    return (
-      <a href={href} className={classes}>
-        {children}
-      </a>
-    );
-  }
+  const variants = {
+    primary: "bg-accent text-white hover:bg-accent-h hover:shadow-accent",
+    ghost:
+      "border-2 border-accent text-accent hover:bg-accent hover:text-white hover:shadow-accent",
+    "ghost-dark":
+      "border-2 border-white/30 text-white hover:border-white hover:bg-white/10 hover:shadow-lg",
+  };
+
+  const sizes = {
+    md: "px-8 py-3 text-sm",
+    lg: "px-10 py-4 text-base",
+  };
 
   return (
-    <button className={classes} {...props}>
-      {children}
+    <button
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      {...props}
+    >
+      {variant === "primary" && (
+        <span className="absolute inset-0 bg-gradient-to-r from-accent-h to-accent opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+      )}
+      <span className="relative">{children}</span>
     </button>
   );
 }
