@@ -1,27 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  variable: "--font-display",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-  weight: ["400", "600", "700", "800"],
-});
-
-const inter = Inter({
-  variable: "--font-body",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin", "cyrillic"],
-  display: "swap",
-  weight: ["400", "500"],
-});
 
 export const metadata: Metadata = {
   title: "КОВКА 53 — Воплотим любые идеи в металле",
@@ -46,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ru"
-      className={`${montserrat.variable} ${inter.variable} ${jetBrainsMono.variable}`}
-    >
+    <html lang="ru">
       <body className="font-body antialiased text-text bg-bg">{children}</body>
     </html>
   );
