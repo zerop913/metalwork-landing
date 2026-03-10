@@ -4,6 +4,56 @@ import React, { useState } from "react";
 import { CheckCircle } from "@phosphor-icons/react";
 import { Button } from "./Button";
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+
+  if (!digits) {
+    return "";
+  }
+
+  const normalized = digits.startsWith("8")
+    ? `7${digits.slice(1)}`
+    : digits.startsWith("7")
+      ? digits
+      : `7${digits}`;
+
+  const country = normalized[0];
+  const part1 = normalized.slice(1, 4);
+  const part2 = normalized.slice(4, 7);
+  const part3 = normalized.slice(7, 9);
+  const part4 = normalized.slice(9, 11);
+
+  let result = `+${country}`;
+
+  if (part1) {
+    result += ` (${part1}`;
+  }
+
+  if (part1.length === 3) {
+    result += ")";
+  }
+
+  if (part2) {
+    result += ` ${part2}`;
+  }
+
+  if (part3) {
+    result += `-${part3}`;
+  }
+
+  if (part4) {
+    result += `-${part4}`;
+  }
+
+  return result;
+}
+
+function isValidPhone(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+
+  return digits.length === 10 || digits.length === 11;
+}
+
 export function LeadForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -20,6 +70,16 @@ export function LeadForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value, type } = e.target;
+
+    if (name === "phone" && type !== "checkbox") {
+      setFormData((prev) => ({
+        ...prev,
+        phone: formatPhone(value),
+      }));
+
+      return;
+    }
+
     setFormData((prev) => ({
       ...prev,
       [name]:
@@ -29,6 +89,12 @@ export function LeadForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidPhone(formData.phone)) {
+      setError("Укажите корректный номер телефона");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -129,6 +195,9 @@ export function LeadForm() {
             value={formData.phone}
             onChange={handleChange}
             required
+            inputMode="tel"
+            pattern="[+0-9()\-\s]{10,20}"
+            title="Введите корректный номер телефона"
             className="w-full border-2 border-border px-4 py-3 text-sm text-text bg-bg focus:outline-none focus:border-accent focus:bg-white transition-all placeholder:text-muted"
             placeholder="+7 (999) 123-45-67"
           />
