@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Phone, TelegramLogo } from "@phosphor-icons/react";
 import { siteConfig } from "@/data/content";
 
@@ -68,12 +69,12 @@ export function Footer() {
           <span className="font-mono text-xs lg:text-sm text-white/40 text-center lg:text-left">
             © {currentYear}. Все права защищены
           </span>
-          <a
-            href="#"
+          <Link
+            href="/privacy"
             className="text-xs lg:text-sm text-white/40 hover:text-accent transition-colors duration-300"
           >
             Политика конфиденциальности
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
