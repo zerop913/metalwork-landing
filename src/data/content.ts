@@ -1,6 +1,6 @@
 export const siteConfig = {
   companyName: "КОВКА 53",
-  companyTagline: "Художественная ковка",
+  companyTagline: "Изделия из металла",
   phone: "8 (952) 484-98-04",
   telegram: "@Alexander_kovka53",
   email: "kovka53sup@mail.ru",
