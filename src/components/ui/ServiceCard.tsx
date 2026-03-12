@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { ImageWithFallback } from "./ImageWithFallback";
+import { useModal } from "@/context/ModalContext";
 
 interface ServiceCardProps {
   title: string;
@@ -17,6 +20,8 @@ export function ServiceCard({
 }: ServiceCardProps) {
   const rotations = [6, -4, 8, -6, 5, -7];
   const rotation = rotations[index % rotations.length];
+
+  const { openModal } = useModal();
 
   return (
     <div
@@ -42,14 +47,17 @@ export function ServiceCard({
             {description}
           </p>
 
-          <div className="mt-5 inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-4 transition-all duration-300">
+          <button
+            onClick={openModal}
+            className="mt-5 inline-flex items-center gap-2 text-accent font-semibold text-sm group-hover:gap-4 transition-all duration-300 cursor-pointer"
+          >
             <span>Подробнее</span>
             <ArrowRight
               size={16}
               weight="bold"
               className="group-hover:translate-x-1 transition-transform duration-300"
             />
-          </div>
+          </button>
         </div>
       </div>
 

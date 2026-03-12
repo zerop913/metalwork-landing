@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { siteConfig } from "@/data/content";
-import { Phone } from "@phosphor-icons/react";
+import { Phone, TelegramLogo } from "@phosphor-icons/react";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -28,10 +28,15 @@ export function Header() {
             scrolled ? "py-4" : "py-6 lg:py-8"
           }`}
         >
-          <a href="#" className="flex items-center gap-4 group relative z-10">
+          <a
+            href="#"
+            className="flex items-center gap-3 sm:gap-4 group relative z-10"
+          >
             <div
               className={`relative transition-all duration-500 group-hover:scale-105 ${
-                scrolled ? "w-12 h-12" : "w-14 h-14 lg:w-16 lg:h-16"
+                scrolled
+                  ? "w-12 h-12"
+                  : "w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16"
               }`}
             >
               <Image
@@ -52,13 +57,14 @@ export function Header() {
               />
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-0">
               <span
                 className={`font-display font-black uppercase tracking-wider leading-none transition-all duration-500 ${
                   scrolled
                     ? "text-2xl lg:text-3xl"
-                    : "text-3xl lg:text-4xl xl:text-5xl"
+                    : "text-[1.9rem] sm:text-3xl lg:text-4xl xl:text-5xl"
                 } ${scrolled ? "text-dark" : "text-white"} group-hover:text-accent`}
+                style={{ whiteSpace: "nowrap" }}
               >
                 {siteConfig.companyName}
               </span>
@@ -68,29 +74,54 @@ export function Header() {
                     ? "text-[9px] lg:text-[10px]"
                     : "text-[10px] lg:text-xs"
                 } ${scrolled ? "text-muted" : "text-white/60"}`}
+                style={{ whiteSpace: "nowrap" }}
               >
                 {siteConfig.companyTagline}
               </span>
             </div>
           </a>
 
-          <a
-            href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
-            className={`group flex items-center gap-3 px-5 py-3 lg:px-6 lg:py-3.5 rounded-xl font-semibold transition-all duration-500 ${
-              scrolled
-                ? "bg-accent text-white hover:bg-accent-h shadow-lg shadow-accent/20"
-                : "bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-accent border border-white/20"
-            }`}
-          >
-            <Phone
-              size={20}
-              weight="bold"
-              className="group-hover:rotate-12 transition-transform duration-300"
-            />
-            <span className="hidden sm:inline text-sm lg:text-base">
-              {siteConfig.phone}
-            </span>
-          </a>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <a
+              href={`https://t.me/${siteConfig.telegram.replace("@", "")}`}
+              aria-label="Telegram"
+              className={`group flex items-center justify-center w-11 h-11 lg:w-12 lg:h-12 rounded-xl transition-all duration-500 ${
+                scrolled
+                  ? "bg-accent text-white hover:bg-accent-h shadow-lg shadow-accent/20"
+                  : "bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-accent border border-white/20"
+              }`}
+            >
+              <TelegramLogo
+                size={20}
+                weight="bold"
+                className="group-hover:scale-110 transition-transform duration-300"
+              />
+            </a>
+
+            <a
+              href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
+              aria-label="Позвонить"
+              className={`group flex items-center justify-center px-3 py-3 sm:px-4 lg:px-5 lg:py-3.5 rounded-xl font-semibold transition-all duration-500 ${
+                scrolled
+                  ? "bg-accent text-white hover:bg-accent-h shadow-lg shadow-accent/20"
+                  : "bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-accent border border-white/20"
+              }`}
+            >
+              <Phone
+                size={20}
+                weight="bold"
+                className="sm:hidden group-hover:rotate-12 transition-transform duration-300"
+              />
+              <Phone
+                size={20}
+                weight="bold"
+                className="hidden sm:block lg:w-5 lg:h-5 mr-3 group-hover:rotate-12 transition-transform duration-300"
+              />
+              <span className="hidden sm:inline text-sm lg:text-base whitespace-nowrap">
+                {siteConfig.phone}
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </header>

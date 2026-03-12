@@ -4,6 +4,10 @@ import React, { useState } from "react";
 import { CheckCircle } from "@phosphor-icons/react";
 import { Button } from "./Button";
 
+interface LeadFormProps {
+  animateOnScroll?: boolean;
+}
+
 function formatPhone(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11);
 
@@ -54,7 +58,7 @@ function isValidPhone(phone: string) {
   return digits.length === 10 || digits.length === 11;
 }
 
-export function LeadForm() {
+export function LeadForm({ animateOnScroll = true }: LeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -128,7 +132,9 @@ export function LeadForm() {
 
   if (submitted) {
     return (
-      <div className="reveal-x bg-white p-8 shadow-2xl flex flex-col items-center justify-center text-center min-h-125 relative overflow-hidden">
+      <div
+        className={`${animateOnScroll ? "reveal-x" : ""} bg-white p-8 shadow-2xl flex flex-col items-center justify-center text-center min-h-125 relative overflow-hidden`}
+      >
         <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-accent" />
         <div className="absolute top-0 right-0 w-12 h-12 border-r-2 border-t-2 border-accent" />
         <div className="absolute bottom-0 left-0 w-12 h-12 border-l-2 border-b-2 border-accent" />
@@ -155,7 +161,7 @@ export function LeadForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="reveal-x bg-white p-8 shadow-2xl transition-all duration-300 relative overflow-hidden group"
+      className={`${animateOnScroll ? "reveal-x" : ""} bg-white p-8 shadow-2xl transition-all duration-300 relative overflow-hidden group`}
     >
       <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors duration-300" />
       <div className="absolute top-0 right-0 w-12 h-12 border-r-2 border-t-2 border-accent/30 group-hover:border-accent transition-colors duration-300" />
