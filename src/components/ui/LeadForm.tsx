@@ -253,7 +253,7 @@ export function LeadForm({ animateOnScroll = true }: LeadFormProps) {
           >
             Я согласен на обработку персональных данных в соответствии с{" "}
             <a
-              href="#"
+              href="/privacy"
               className="text-accent hover:text-accent-h transition-colors underline"
             >
               политикой конфиденциальности

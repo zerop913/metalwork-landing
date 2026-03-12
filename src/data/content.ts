@@ -2,7 +2,7 @@ export const siteConfig = {
   companyName: "КОВКА 53",
   companyTagline: "Изделия из металла",
   phone: "8 (952) 484-98-04",
-  telegram: "@Alexander_kovka53",
+  telegram: "@Kovka_53",
   email: "kovka53sup@mail.ru",
   address: "г. Великий Новгород, ул. Магистральная, 6",
   mapCoords: { lat: 58.561735, lng: 31.254833 },
